@@ -22,7 +22,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile load eval) (in-package 'user))
+(eval-when (compile load eval) (in-package "COMMON-LISP-USER"))
 
 ;;; IBCL uses the same settings as KCL, so add kcl to feature list
 ;;; (PJW 09.01.90)
@@ -109,6 +109,11 @@
              ((atom .error-p.)
                 (throw .error-p. nil))
              (t '|error|))))
+   #+sbcl
+   (let ((result (gensym)))
+     `(let ((,result))
+        (handler-case (setq ,result (list ,x))
+           (error (condition) (setq ,result condition)))))
    #+allegro
    `(multiple-value-bind (.no-error-p. .res.)
        (excl:errorset ,x t)
@@ -116,7 +121,7 @@
    #+:coral
    `(ccl:catch-error
        (ccl:catch-abort (ccl:catch-cancel (list ,x))))
-   #-(or procyon lucid kcl allegro :coral)
+   #-(or procyon lucid kcl sbcl allegro :coral)
    (error
 "errset macro (in lisp/f-cl.l) has not been defined for this lisp"))
 
@@ -315,6 +320,19 @@
           (load file :verbose nil :print nil))))
 
 
+#+sbcl
+(unlock-package 'common-lisp)
+
+#+sbcl
+(let ((original-mapc (symbol-function 'mapc)))
+   (setf (symbol-function 'mapc)
+         #'(lambda (applied &rest arguments)
+             (apply original-mapc
+                    (if (listp applied)
+                        (eval `(function ,applied))
+                        applied)
+                    arguments))))
+                 
 (defmacro special (&rest vars)
    `(proclaim '(special ,@vars)))
 
@@ -437,6 +455,9 @@
    `(and (string< (string ,x) (string ,y)) t))
 
 (defmacro atomify (x) `(intern (princ-to-string ,x)))
+
+(defun int-char (code)
+   (code-char code))
 
 (defmacro ascii (x)
    `(intern (string (int-char ,x))))

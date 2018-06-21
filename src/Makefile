@@ -876,6 +876,7 @@ HolLispBasic=lisp/f-$(LispType).$(Obj)
 lisp/f-$(LispType).$(Obj): lisp/f-$(LispType).l
 	if [ $(LispType) = cl ]; then\
 	  echo '#+allegro $(AllegroStuff)'\
+	       "#+sbcl (unlock-package 'common-lisp)"\
 	       '(compile-file "lisp/f-cl.l") (quit)'\
 	       | $(Lisp); else\
 	  $(Liszt) lisp/f-franz; fi
