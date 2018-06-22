@@ -173,6 +173,8 @@
             `(lambda nil (tml)))
          (gbc t)
          (save file))
+      #+sbcl
+      (sb-ext:save-lisp-and-die file :executable t :toplevel #'tml)
       #+allegro
       (progn
          (setf (symbol-function 'excl::copyright-banner)
