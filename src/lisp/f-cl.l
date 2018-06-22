@@ -323,6 +323,12 @@
 #+sbcl
 (eval-when (compile load eval) (unlock-package 'common-lisp))
 
+(defun forgiving-funcall (applied &rest arguments)
+   (funcall (if (listp applied)
+                (eval `(function ,applied))
+                applied)
+            arguments))
+
 #+sbcl
 (let ((original-mapc (symbol-function 'mapc)))
    (setf (symbol-function 'mapc)

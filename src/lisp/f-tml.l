@@ -204,7 +204,7 @@
    ;; Retain compatibility with old franz versions. Do proper thing for CL
    #+franz (funcall `(lambda (%e) ,%pr) nil)
    #-franz
-   (funcall
+   (forgiving-funcall
       ;; may not attempt to compile already-compiled functions in ANSI
       ;; standard CL. Check added - JAC 19.06.92
       (if (and (not (compiled-function-p %pr)) |%compile_on_the_fly-flag|)

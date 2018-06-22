@@ -406,7 +406,7 @@
          (let ((checkbody (tr-match (cadr e)))
                (newfun
                   (if (null (cddr e))
-                     (uniquesym 'FUN %timestamp)
+                     (uniquesym 'FUN  (concat %timestamp '% (sb-unix:unix-getpid)))
                      (caddr e))))
             ;; store away as function to evaluate later
             (remember-tran-function newfun '(%e) (list checkbody))
@@ -429,7 +429,7 @@
             (let ((checkbody (gencheck cl body))
                   (newfun
                      (if (null (cdddr e))
-                        (uniquesym 'FUN %timestamp)
+                        (uniquesym 'FUN (concat %timestamp '% (sb-unix:unix-getpid)))
                         (cadddr e))))
                ;; store away as function to evaluate later
                (remember-tran-function newfun '(%e) (list checkbody))
@@ -484,7 +484,7 @@
 
 (defun lispfunpat (pat)
    (ifn (null pat)
-      (if (atom pat) (uniquesym 'FUN %timestamp)
+      (if (atom pat) (uniquesym 'FUN (concat %timestamp '% (sb-unix:unix-getpid)))
          (cons (lispfunpat (car pat)) (lispfunpat (cdr pat))))))
 
 (defun chkvarstr (x msg1 msg2)
@@ -788,7 +788,7 @@
       ((atom code) code)
       ((and (eq (car code) 'lambda) inside-quote)
          (let
-            ((name (uniquesym 'FUN %timestamp))
+            ((name (uniquesym 'FUN (concat %timestamp '% (sb-unix:unix-getpid))))
              (forms (optimize-code (cddr code) nil)))
             (remember-tran-function name (cadr code) forms)
             name))
