@@ -321,7 +321,7 @@
 
 
 #+sbcl
-(unlock-package 'common-lisp)
+(eval-when (compile load eval) (unlock-package 'common-lisp))
 
 #+sbcl
 (let ((original-mapc (symbol-function 'mapc)))
