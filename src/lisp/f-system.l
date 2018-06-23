@@ -82,9 +82,17 @@
    (shell (string cmd))
    #+kcl
    (system (string cmd))
+   #+sbcl
+   (sb-ext:process-exit-code (sb-ext:run-program "/bin/sh"
+                                                 (list "-c"
+                                                       (string cmd))
+                                                 :wait
+                                                 t
+                                                 :output
+                                                 t))
    #+allegro
    (shell (string cmd))
-   #-(or franz lucid kcl allegro)
+   #-(or franz lucid kcl sbcl allegro)
    (failwith "system: no system commands implemented"))
 
 ;;; Call help/Reference/doc-to-help.sed on .doc help file
