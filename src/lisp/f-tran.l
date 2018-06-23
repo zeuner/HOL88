@@ -150,12 +150,24 @@
    #+franz `((lambda (,var) ,@forms) ,val)
    #-franz `(let ((,var ,val)) ,@forms))
 
+(defun deep-contains (contained containing)
+   (cond ((consp containing) (or (deep-contains contained (car containing))
+                                 (deep-contains contained (cdr containing))))
+         ((eq contained containing) t)))
+
+(defun with-added-ignore-clauses (arglist body-forms)
+   (if arglist
+       (if (deep-contains (car arglist) body-forms)
+           (with-added-ignore-clauses (cdr arglist) body-forms)
+           (cons `(declare (ignore ,(car arglist)))
+                 (with-added-ignore-clauses (cdr arglist) body-forms)))
+       body-forms))
 
 (defun remember-tran-function (name arglist body-forms)
    (push
       `(defun ,name ,arglist
           #-franz (declare (optimize (speed 2) (safety 0)))
-          ,@body-forms)
+          ,@(with-added-ignore-clauses arglist body-forms))
       %compfns))
 
 
@@ -776,7 +788,7 @@
       #-franz
       `(lambda (%e)
           (declare (optimize (speed 2) (safety 0)))
-          ,pr)))   ;tran
+          ,@(with-added-ignore-clauses '(%e) (list pr)))))   ;tran
 
 
 ;;; Optimize Lisp code. Lambda expressions inside quoted data may profitably
