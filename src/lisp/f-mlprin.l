@@ -29,7 +29,7 @@
 ;;;                           eval                                          ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro"))
@@ -48,7 +48,7 @@
 
 
 ;;; macro for printing subtrees
-(eval-when (compile load)
+(eval-when (:compile-toplevel :load-toplevel)
    (defun expand-print (x)
       (cond
          ((numberp x) `(print-nth ,x))

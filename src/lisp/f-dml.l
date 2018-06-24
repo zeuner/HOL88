@@ -27,7 +27,7 @@
 ;;; V4.3: Added fast arithmetic (smallnums)  GC                             ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-macro")
    (include "lisp/f-constants")

@@ -27,13 +27,13 @@
 ;;; lisp implementation. [Grotty way to tell that in franz lisp
 ;;; - *features* is unbound).
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (cond
       ((boundp '*features*)
          (setq *features* (remove :franz *features*)))))
 
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (setq |%theory_pp-flag| nil)
    (setq %debug nil)
    (setq experimental nil)
@@ -56,7 +56,7 @@
 
 ;;; f-help.l added to the load sequence
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (mapc
       #'(lambda (file)
            (cond

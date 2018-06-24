@@ -57,7 +57,7 @@
 
 ;;;  Specials:  %e, %newtypes, %newconsts
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -86,7 +86,7 @@
 (setq %loading-thy nil)
 
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (when initial%load                              ;  Globals
       (setq %current '-)                            ;  Settings to enable
       (setq %kind 'init)                            ;  pplamb in system load

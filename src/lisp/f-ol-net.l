@@ -23,7 +23,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -56,14 +56,14 @@
 
 ;;; a-list nodes -- keys with entries
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro get-key (link) `(car ,link))
    (defmacro get-entry (link) `(cdr ,link))
    (defmacro make-link (key entry) `(cons ,key ,entry)))
 
 ;;; tips of nets
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro get-tiplist (x) `(cdr ,x))
    (defmacro is-tip (x) `(eq (car ,x) '*tip*))
    (defmacro make-tip (x) `(cons '*tip* ,x)))

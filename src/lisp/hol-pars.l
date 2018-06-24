@@ -26,7 +26,7 @@
 ;;; Modified version of F-parsol.l to parse HOL.
 ;;; See mk_HOL.ml for more details.
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -118,7 +118,7 @@
 ;;; MJCG 8/11/88 for HOL88
 ;;; changed from using constp to has-const to handle hidden constants.
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro has-const (tok) `(get ,tok (quote const))))
 
 ;;; MJCG for HOL88.1.02 on 28/3/1989
@@ -440,7 +440,7 @@
 ;;; MJCG for HOL88 2/11/1988
 ;;; mark certain symbols to always parse as a constant
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (putprop conj-tok   t 'syn-const)
    (putprop disj-tok   t 'syn-const)
 ;;;(putprop iff-tok    t 'syn-const)   DELETED [TFM 90.01.20]
@@ -535,11 +535,11 @@
 ;;; Used in f-parser.l
 (defun hol-restrictsetup () (putprop restrict-tok 105 'ollp))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (let ((lang1 'ol1)(lang2 'ol2)(langlp 'ollp))
       (unop prod-tok '(word-rtn (parse-level 1000)))))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (put-double '|=| '(#/> #/=))
    (put-double '|-| '(#/>))
    (put-double '|:| '(#/=))

@@ -30,7 +30,7 @@
 ;;; V4 : rewrote substitution, re-arranged arguments of substoccs           ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -210,7 +210,7 @@
    )   ; substitute-occs
 
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro get-term1 (sr) `(car ,sr))
    (defmacro get-term2 (sr) `(cadr ,sr))
    (defmacro get-occs (sr) `(caddr ,sr))

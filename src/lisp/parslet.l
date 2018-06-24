@@ -36,7 +36,7 @@
 ;;;   "let x1=t1 and x2=t2 ... and xn=tn in t" 
 ;;;          --> "LET ( ... (LET(LET (\x1...xn.t) t1)t2) ... ) tn" 
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -46,7 +46,7 @@
 
 #+franz (declare (localf hol-bnd-rtn))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (let ((lang1 'ol1) (lang2 'ol2) (langlp 'ollp))
       (unop '|let| '(ol-let-rtn))))
 

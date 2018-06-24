@@ -22,7 +22,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile) 
+(eval-when (:compile-toplevel) 
    (macros t)   
    (*lexpr concat uconcat catenate)
    (special user-top-level ER%all $gcprint prinlength prinlevel
@@ -66,8 +66,8 @@
 
 (defmacro defconstant (x y)
    `(progn 'compile
-       (eval-when (compile load) (special ,x))
-       (eval-when (compile load eval) (setq ,x ,y))))
+       (eval-when (:compile-toplevel :load-toplevel) (special ,x))
+       (eval-when (:compile-toplevel :load-toplevel :execute) (setq ,x ,y))))
 
 
 (defmacro synonymq (sym1 sym2)

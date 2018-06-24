@@ -23,7 +23,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile) (macros t))
+(eval-when (:compile-toplevel) (macros t))
 
 
 (defmacro make-thm (asl w) `(cons ,asl ,w))

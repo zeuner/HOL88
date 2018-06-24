@@ -22,7 +22,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile) 
+(eval-when (:compile-toplevel) 
    #+franz (include "lisp/f-franz")
    (include "lisp/f-macro")
    (special %liszt %debug %hol-dir %display-function))
@@ -33,7 +33,7 @@
 ;;; to allow for Unix's 14 char limit, and a suffix .xx
 ;;; (Unless this Unix has long filenames). Assume by default it has.
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    #+franz (sstatus feature long-filenames)
    #-franz (pushnew :long-filenames *features*))
 

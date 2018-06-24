@@ -22,7 +22,7 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (macros t))
 
@@ -99,10 +99,10 @@
 
 
 (defmacro dml (ml-fn n lisp-fn mty)
-   `(eval-when (load)
+   `(eval-when (:load-toplevel)
       (declare-ml-fun (quote ,ml-fn) (quote ,n) (quote ,lisp-fn)
          (quote ,mty))))
 
 (defmacro dmlc (id exp mty)
-   `(eval-when (load)
+   `(eval-when (:load-toplevel)
       (declare-ml-const (quote ,id) (quote ,exp) (quote ,mty))))

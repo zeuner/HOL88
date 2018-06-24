@@ -28,7 +28,7 @@
 ;;;    Changed "can" to avoid non-local "return" from "tag" (caused looping);;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -38,7 +38,7 @@
 (declare (localf outq))
 
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defconstant word-sep (cascii '|%|)))         ; word separator for uniquesym
 
 
@@ -145,7 +145,7 @@
 
 ;;; initialization of uniquesym
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (when initial%load (setq %symcount 0)))
 
 

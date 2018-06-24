@@ -22,7 +22,8 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile load eval) (in-package "COMMON-LISP-USER"))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+   (in-package "COMMON-LISP-USER"))
 
 ;;; IBCL uses the same settings as KCL, so add kcl to feature list
 ;;; (PJW 09.01.90)
@@ -61,7 +62,7 @@
 ;;; Franz lisp. Remove it from features if it appears in a common
 ;;; lisp implementation.
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (setq *features* (remove :franz *features*)))
 
 
@@ -133,10 +134,10 @@
 ;;; optional exit status).  PJW -- 04OCT90
 
 #-lcl3.0
-(eval-when (compile load eval) (shadow '(quit)))
+(eval-when (:compile-toplevel :load-toplevel :execute) (shadow '(quit)))
 
 #-lcl3.0
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defun quit (&rest args)
       (let ((code (cond (args (car args)) (t 0))))
          #+procyon (procyon:quit :quit code)
@@ -190,9 +191,9 @@
 
 ;;; Control of input. Ignore EOF on standard-input stream
 
-#+kcl (eval-when (load) (setf si:*ignore-eof-on-terminal-io* t))
+#+kcl (eval-when (:load-toplevel) (setf si:*ignore-eof-on-terminal-io* t))
 
-#+allegro (eval-when (load) (setf top-level:*exit-on-eof* nil))
+#+allegro (eval-when (:load-toplevel) (setf top-level:*exit-on-eof* nil))
 
 #+(and procyon pc)
 (defmethod cg:location-fasl-file-p ((stream pc::dos-location))
@@ -216,7 +217,7 @@
 ;;; causes expression to be evaluated as ML.
 
 #+procyon
-(eval-when (load)
+(eval-when (:load-toplevel)
 
 (comtab:set-event-function toploop::*toploop-comtab* null-event 
    ;; Make sure %margin always holds the interaction window width
@@ -265,7 +266,7 @@
 ;;; item asks for confimation.
 
 #+(and procyon macintosh)
-(eval-when (load)
+(eval-when (:load-toplevel)
  
 (comtab:defcom ml-eval-region te:*text-edit-comtab* (window)
    (multiple-value-bind (start end)
@@ -303,7 +304,7 @@
 ;;; %directory is bound, then prepend it to filename. If PC then make
 ;;; directory separator \ rather than /, otherwise make it :
 
-(eval-when (compile load eval) (shadow '(include)))
+(eval-when (:compile-toplevel :load-toplevel :execute) (shadow '(include)))
 
 (defmacro include (x)
    `(flet
@@ -323,7 +324,8 @@
 
 
 #+sbcl
-(eval-when (compile load eval) (unlock-package 'common-lisp))
+(eval-when (:compile-toplevel :load-toplevel :execute)
+   (unlock-package 'common-lisp))
 
 (defun forgiving-funcall (applied &rest arguments)
    (funcall (if (listp applied)
@@ -355,7 +357,7 @@
 ;;; New #-macro sub-character '/' - like '\' but returns the 
 ;;; character code, rather than the character.
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (set-dispatch-macro-character #\# #\/
       #'(lambda (stream subchar arg)
            (declare (ignore subchar arg))
@@ -383,7 +385,7 @@
          (t (list ,val)))))
 
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (shadow '(until while)))
 
 (defmacro until (test . body)
@@ -429,7 +431,7 @@
 
 ;;;
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    ;; Some CL implementations try to be 'helpful' in defining these as
    ;; functions. They are macros here.
    (shadow '(memq assq delq putprop)))

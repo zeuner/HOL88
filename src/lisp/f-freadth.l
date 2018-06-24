@@ -27,10 +27,10 @@
 
 ;;; *** Patch to lisp/f-thyfns.l
 
-(eval-when (load eval)
+(eval-when (:load-toplevel :execute)
    (warn "lisp/f-freadth.l is redefining function THY-READ"))
 
-(eval-when (compile) (include "lisp/f-macro"))
+(eval-when (:compile-toplevel) (include "lisp/f-macro"))
 
 (defun thy-read (thy #+franz piport #-franz *standard-input*)
    (second     ; to ignore the (quote ...)
@@ -53,7 +53,7 @@
 (defvar *fast-read-upper-case*
    (make-hash-table :size 40 :test #'equal))
 
-(eval-when (load eval)
+(eval-when (:load-toplevel :execute)
    (mapc
       '(lambda (str)
            (setf (gethash str *fast-read-upper-case*)
@@ -66,7 +66,7 @@
 (defvar *fast-read-char-vector*
    (make-array 256 :initial-element :constituent))
 
-(eval-when (load eval)
+(eval-when (:load-toplevel :execute)
    (mapc
       '(lambda (char)
            (setf (svref *fast-read-char-vector* (char-int char))
@@ -88,7 +88,7 @@
 
 ;;;
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defmacro eq-chars (x y)
       `(char= (the character ,x) (the character ,y))))
 

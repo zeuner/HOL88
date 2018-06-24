@@ -29,7 +29,7 @@
 ;;;                     V4.3 : (\x.e)e' typechecks like let x=e' in e    GH ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -409,7 +409,7 @@
    (setq %temt  nil)
    (setq %deftypes nil))                       ;inittmltypenv
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (cond (initial%load (initmltypenv))))
 
 

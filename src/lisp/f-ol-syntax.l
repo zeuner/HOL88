@@ -28,7 +28,7 @@
 ;;;                     V2.2 : new-exit instead of err                      ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -46,7 +46,7 @@
 
 ;;; for writing destructor functions
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro destruct (tag x msg)
       `(cond
          ((#+franz eq #-franz eql (car ,x) (quote ,tag))

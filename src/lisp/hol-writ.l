@@ -25,7 +25,7 @@
 
 ;;; RJB 16.11.92 - All occurrences of <=> deleted.
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -75,7 +75,7 @@
 ;;; If T1 is a 'closes property of T2 then brackets will be put around
 ;;; T1 when it is printed in the context of T2
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (mapc
       #'(lambda (x) (putprop (car x) (cdr x) 'closes))
       '((|~| . (quant restrict /\\ \\/ |==>| |,| |=|))
@@ -116,7 +116,7 @@
 ;;; MJCG 5/8/90 for HOL88.1.12
 ;;; |%print_set-flag| added
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (mapc
       (function (lambda (x) (set x t)))
       '(|%print_list-flag| |%print_cond-flag| |%print_restrict-flag|
@@ -887,7 +887,7 @@
 ;;; this makes a big difference if the formula is broken over several lines
 ;;; "\" is treated as a quantifier for printing purposes
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (putprop lam-sym t 'binder))
 
 

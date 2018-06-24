@@ -30,7 +30,7 @@
 ;;;      Technical report STAN-CS-79-770, Stanford University, Stanford, CA.
 ;;;      Also in ACM TOPLAS, October 1980, P. 465.
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-macro")
    (include "lisp/f-constants")
@@ -57,7 +57,7 @@
 
 ;;; constant definitions
 
-(eval-when (compile load)
+(eval-when (:compile-toplevel :load-toplevel)
    (defconstant %infinity 999999))        ;large value for default token size
 
 
@@ -85,7 +85,7 @@
 ;;;    ('begin   indent  [in]consistent )
 ;;;    ('end)
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro tok-class (tok) `(car ,tok))
    (defmacro get-string-text (tok) `(cadr ,tok))
    (defmacro get-break-width (tok) `(cadr ,tok))
@@ -99,7 +99,7 @@
 ;;;   where left-total the value of %left-total when element was entered
 ;;;   and qi is the queue element whose size must later be set 
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro make-ss-elem (left qi) `(cons ,left ,qi))
    (defmacro get-left-total (x) `(car ,x))
    (defmacro get-queue-elem (x) `(cdr ,x)))
@@ -108,7 +108,7 @@
 ;;; the Queue
 ;;; elements (size token len)   
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro make-queue-elem (size tt len) `(list ,size ,tt ,len))
    (defmacro get-queue-size (q) `(car ,q))
    (defmacro get-queue-token (q) `(cadr ,q))
@@ -119,7 +119,7 @@
 ;;; the Printing Stack, %pstack 
 ;;;  each element is (break . offset)
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro get-print-break (x) `(car ,x))
    (defmacro get-print-indent (x) `(cdr ,x)))
 
@@ -322,7 +322,7 @@
    (pnewline)
    (setpretty pp))  ; ml-set_prettymode
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (pinit)
    (setpretty t))
 

@@ -22,11 +22,11 @@
 ;;;   REVISION HISTORY: (none)                                              ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz"))
 
 
-(eval-when (compile load)
+(eval-when (:compile-toplevel :load-toplevel)
    (special
 
            poport                      ;output stream

@@ -34,7 +34,7 @@
 ;;;                     removed from build sequence [TFM for HOL88 2.01]    ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (include "lisp/f-macro"))
 
 (dml |parse_as_binder| 1 binder-rtn (|tok| -> |tok|))

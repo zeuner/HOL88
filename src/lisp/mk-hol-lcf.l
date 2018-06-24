@@ -25,7 +25,7 @@
 ;;; If %directory is bound, then prepend it to filename. If not unix
 ;;; then make directory separator : rather than /.
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (mapc
       #'(lambda (file)
            (cond

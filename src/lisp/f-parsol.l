@@ -37,7 +37,7 @@
 ;;; if an error actually occurred.  
 ;;;  - LP
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro"))
@@ -257,7 +257,7 @@
 
 ;;; set up OL symbols and precedences
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (let ((lang1 'ol1) (lang2 'ol2) (langlp 'ollp))
       
 (putprop endcnrtok 0 'ollp)

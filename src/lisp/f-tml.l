@@ -39,7 +39,7 @@
 ;;;                                                                         ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile) 
+(eval-when (:compile-toplevel) 
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -88,12 +88,12 @@
 ;;;  Specials:  %p, %thisdec, %thistydec, tenv
 
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defconstant initsection '%mustbeatom)
    (defconstant initenv (cons initsection nill))
    (defconstant nosecname '|<noname>|))         ; Value printed by begin/end
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (when initial%load                              ;  Globals
       (setq global%env ())
       (setq %f nil)
@@ -656,10 +656,10 @@
                (printresults)
                (mapc
                   #'(lambda (form)
-                     (hol-print-file `(eval-when (load) ,form)))
+                     (hol-print-file `(eval-when (:load-toplevel) ,form)))
                   %compfns)
                (hol-print-file 
-                  `(eval-when (load)
+                  `(eval-when (:load-toplevel)
                      (execute
                         ',%ty ',%thisdec ',%thistydec ',%head ',new%%lb
                         ;; Retain compatibility with old franz versions.
@@ -673,7 +673,7 @@
 ;;; For example, the putprops used to store abstract type information
 
 (defun eval-remember (x)
-   (when %outport (hol-print-file `(eval-when (load) ,x)))
+   (when %outport (hol-print-file `(eval-when (:load-toplevel) ,x)))
    (eval x))                                    ;eval-remember
 
 

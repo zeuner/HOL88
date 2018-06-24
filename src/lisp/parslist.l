@@ -23,7 +23,7 @@
 ;;;   REVISION HISTORY: %hol-list-depth added by MJCG on 9/2/93             ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -35,7 +35,7 @@
 #+franz (declare (localf mk-ol-list mk-finite-set get-frees-in-pt 
                          mk-var-tuple-pt mk-tuple-pt))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (let ((lang1 'ol1)(lang2 'ol2)(langlp 'ollp))
       (unop lbrkt-sym '(ol-list-rtn))
       (putprop scolon-sym 20 'ollp)

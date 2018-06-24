@@ -36,7 +36,7 @@
 ;;; The instantiation of terms and formulas is now implemented in Lisp,
 ;;; as the ML versions were exponential.
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")

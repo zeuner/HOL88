@@ -30,7 +30,7 @@
 ;;;                     to do:  right-associative infixes                   ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -111,7 +111,7 @@
 ;;; associativity logic is not stored here, but included in printing functions
 ;;; the symbols include those introduced by prep-tm/fm
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (mapc #'(lambda (x) (putprop (car x) (cdr x) 'closes))
       '((neg . (forall exists conj disj imp)) ; iff deleted [TFM 90.01.20]
          (conj . (forall exists conj disj imp)) ; iff deleted [TFM 90.01.20]

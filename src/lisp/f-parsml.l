@@ -31,7 +31,7 @@
 ;;; Hol version 2.02: made preterm_handler work in CL : [MJCG 04.12.92]     ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -39,7 +39,7 @@
    (*lexpr concat))
 
 ;;; To make sure that the preterm flag is off [TFM 91.01.28]
-(eval-when (load eval)
+(eval-when (:load-toplevel :execute)
    (setq |%preterm-flag| nil))
 
 
@@ -564,7 +564,7 @@
 
 
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (setq lang1 'ml1)
    (setq lang2 'ml2)
    (setq langlp 'mllp)
@@ -575,7 +575,7 @@
 ;;; MJCG 1/2/90
 ;;; Sections reinstated 
 ;;; (but intended for system use only)
-(eval-when (load)
+(eval-when (:load-toplevel)
    (unop '|begin_section| '(sec-rtn 'mk-begin))
    (unop '|end_section| '(sec-rtn 'mk-end)))
 
@@ -586,7 +586,7 @@
 ;;; MJCG 17/5/92 bugfix: eta-convert argument to top_print 
 ;;; (avoids obscure bug discovered by TFM).
 ;;; Bound variable of dummy eta-conversion is %top_print-dummy.
-(eval-when (load)
+(eval-when (:load-toplevel)
    (unop
       '|top_print|
       '(cond ((greaterp parsedepth 1)
@@ -600,7 +600,7 @@
                (mk-var %top_print-dummy)
                (mk-appn ,(parse-level 0) (mk-var %top_print-dummy))))))))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (unop tml-sym '(parse-failed '(stuff missing)))
    (unop '|true| ''(mk-boolconst t))
    (unop '|false| ''(mk-boolconst nil))
@@ -663,7 +663,7 @@
    (bnop colon-sym '(mltyp-rtn))
    (unop cnr-sym '(cnr-rtn)))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (putprop tml-sym 0 langlp)
    (putprop '|of| 20 langlp)
    (putprop rparen-sym 10 langlp)

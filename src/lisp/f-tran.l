@@ -37,7 +37,7 @@
 
 ;;; Sets manifests:  isomclosure, isom, dummy, empty, tzero
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -98,7 +98,7 @@
 
 ;;; phyla for which all subtrees must be translated (via trq)
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defconstant %q-trans-args
       '(                                   ; term constructors
          (MK=TYPED . q-mk_typed)   
@@ -119,13 +119,13 @@
 
 ;;; phyla for which the one subtree must be quoted
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defconstant %q-quote-arg
       '((MK=VAR . q-mk_var)
          (MK=CONST . q-mk_const)
          (MK=VARTYPE . q-mk_vartype))))
 
-(eval-when (compile load eval)
+(eval-when (:compile-toplevel :load-toplevel :execute)
    (defconstant isomclosure (cons 'car 'isomclosure))      ;new 
    (defconstant isom '%isom)
    (defconstant rec '%rec)

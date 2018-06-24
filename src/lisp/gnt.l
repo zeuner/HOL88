@@ -25,7 +25,7 @@
 
 ;;; gnt (get next token) changed so numbers returned in both ML and OL
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")

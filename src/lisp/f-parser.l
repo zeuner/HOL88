@@ -36,7 +36,7 @@
 ;;;    speed it up                                                          ;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    #+franz (include "lisp/f-franz")
    (include "lisp/f-constants")
    (include "lisp/f-macro")
@@ -44,7 +44,7 @@
             %special-table %ch |%read_sexpr-flag| %syntax-block-enabled))
 
 
-(eval-when (compile)
+(eval-when (:compile-toplevel)
    (defmacro bounded (lower a upper) 
       `(and (<= ,lower ,a) (<= ,a ,upper))))    ; bounded
 
@@ -274,7 +274,7 @@
       (setf (getf %special-table x) (union l (getf %special-table x)))
       (putprop x (union l (get x 'double)) 'double)))
 
-(eval-when (load)
+(eval-when (:load-toplevel)
    (put-double '|=| '(#/> #/=))
    (put-double '|-| '(#/>))
    (put-double '|<| '(#/< #/=))
