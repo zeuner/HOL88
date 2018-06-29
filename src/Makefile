@@ -150,7 +150,7 @@ SHELL=/bin/sh
 
 LispType=cl
 Obj=o
-Lisp=akcl
+Lisp=sbcl
 Liszt=
 LisztComm=
 Allegro=(set-case-mode :case-insensitive-upper)
