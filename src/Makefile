@@ -168,7 +168,7 @@ Hol=hol
 LispDir=${HOLdir}/lisp
 
 ExeName = hol
-Version = 2.02 (SUN4/AKCL)
+Version = 2.02 (SBCL)
 
 # =====================================================================
 # Default (from Phil Windley)
